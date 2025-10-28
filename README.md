@@ -1,55 +1,16 @@
-# حِين | مرض الشريان التاجي
-## المقدّمة
-منصّة **حِين** هي لوحة تحليلات عربية (RTL) متخصصة في التنبؤ المبكّر بمخاطر **مرض الشريان التاجي (CAD)**، وتعمل على دمج التحليل الإحصائي مع الذكاء الاصطناعي لتقديم مؤشرات دقيقة تساعد على الوقاية والعلاج. تم بناء النظام باستخدام **FastAPI** كخلفية و**React/Vite** كواجهة أمامية، مع **Docker** للتشغيل السريع. نعتمد خوارزمية **Marine Predators Algorithm (MPA)** لاختيار الميزات وضبط المعاملات؛ وهي نفس الخوارزمية في الورقة البحثية، لكن على بياناتنا المنظّفة والمربوطة (Demographics ↔ Labs ↔ Vitals ↔ History)، ما يغيّر فضاء الميزات ويجعل MPA أكثر ملاءمة للسياق المحلي.
+# React + Vite
 
-# الهيكل العام للمشروع
-## يعتمد النظام على تقسيم واضح للمهام بين المكوّنات الرئيسة: backend/ لخدمات الخادم (FastAPI)، وfrontend/ للواجهة التفاعلية (React)، إضافة إلى إعدادات CI لضمان جودة التطوير المستمر. هذا التنظيم يسهّل عمليات النشر، وإدارة التحديثات، واستبدال مصادر البيانات مستقبلًا دون التأثير على البنية العامة.
-البيانات ومعالجتها
-تم تنظيف البيانات من القيم المفقودة أو الشاذّة، وتوحيد الوحدات القياسية، وترميز المتغيرات الفئوية، وربط الجداول وفق حقول مشتركة مثل patient_id وvisit_date. هذه الخطوة ضرورية لأن جودة البيانات هي الأساس في دقة النماذج التنبؤية، كما أن الربط الصحيح يقلّل من التحيّز ويرفع موثوقية النتائج.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-# خوارزميةMPA (Marine Predators Algorithm)
-## استخدام خوارزمية MPA لاختيار الميزات المثلى وتحسين معاملات النماذج التصنيفية (مثل Logistic Regression وXGBoost). اختيرت هذه الخوارزمية لأنها تُعد من الخوارزميات الميتا-ابتكارية (Meta-heuristic) القوية في استكشاف فضاءات الحلول الواسعة والمعقدة، وهي الأنسب بعد التعديل في الميزات الناتج عن عملية ربط الجداول.
+Currently, two official plugins are available:
 
-# الخلفية(Back-End) –FastAPI
-## يوفّر الخادم واجهات برمجية (Endpoints) واضحة مثل /health, /risk/train, /risk/predict.
-تم اختيار FastAPI لما يقدّمه من سرعة عالية، وتوثيق تلقائي، وسهولة في الدمج مع واجهة React وأنظمة التكامل المستمر.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-# الواجهة الأمامية (Front-End) – React + TailwindCSS
-## تم بناء الواجهة باستخدام React مع دعم كامل للاتجاه من اليمين إلى اليسار (RTL) لعرض المحتوى العربي، مع الاستعانة بمكتبة Recharts لعرض الرسوم البيانية.
-تم اعتماد TailwindCSS لتسريع عملية التصميم والحفاظ على اتساق المظهر بأقل كمية من التعليمات البرمجية.
+## React Compiler
 
-# التشغيل والتكامل (Docker + CI)
-## تم إنشاء حاويات منفصلة لكل من الواجهة الخلفية والأمامية عبر Docker لضمان قابلية التشغيل على أي بيئة دون تعقيد، إضافةً إلى إعداد أنظمة GitHub Actions للتكامل المستمر (CI) بهدف أتمتة عمليات البناء والاختبار قبل النشر.
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-<div dir="rtl">
+## Expanding the ESLint configuration
 
-# اهم المكتبات المستخدمة : 
-###  الواجهة الخلفية (Back-End – FastAPI)
-
-- **FastAPI** — لبناء واجهات برمجية (APIs) عالية الأداء وسهلة التوثيق.  
-- **Uvicorn** — خادم ASGI لتشغيل تطبيق FastAPI بسرعة وكفاءة.  
-- **Pydantic / Pydantic-Settings** — لتعريف النماذج (Schemas) والتحقق من صحة البيانات بطريقة آمنة وسهلة القراءة.  
-- **Pandas** — لمعالجة البيانات وتحليلها، بما في ذلك التنظيف والربط بين الجداول.  
-- **NumPy** — لدعم العمليات العددية والمصفوفية أثناء المعالجة والنمذجة.  
-- **Scikit-Learn** — لتقسيم البيانات وتطبيق المقاييس الإحصائية (مثل ROC-AUC) والتقييم العام للنموذج.  
-- **XGBoost** — لتدريب نموذج تصنيفي قوي يعتمد على Boosted Trees في التنبؤ بمخاطر المرض.  
-- **Joblib** — لحفظ النموذج بعد التدريب واستعادته عند التنبؤ.  
-- **SQLAlchemy** — لإدارة قواعد البيانات وتعريف الجداول بطريقة كائنية (ORM).  
-- **Email-Validator** — للتحقق من صحة البريد الإلكتروني ضمن نماذج المستخدمين عند الحاجة.  
-
-</div>
-
-<div dir="rtl">
-
-###  الواجهة الأمامية (Front-End – React/Vite)
-
-- **React** — لبناء واجهات تفاعلية وسريعة الاستجابة للمستخدم.  
-- **React-Router-DOM** — لإدارة التنقل بين الصفحات (Routing).  
-- **Vite** — لأداء تطوير سريع وبناء محسّن.  
-- **Axios** — للتواصل مع واجهات الـAPI وإرسال الطلبات إلى الخادم.  
-- **Recharts** — لإنشاء الرسوم البيانية والتصوير البصري لنتائج التحليل.  
-- **TailwindCSS** — لتنسيق الواجهة بأسلوب حديث ومتجاوب (Responsive).  
-- **PostCSS + Autoprefixer** — لمعالجة الأنماط وضمان التوافق مع مختلف المتصفحات.  
-- **TypeScript** — لضمان دقّة أنواع البيانات وسهولة الصيانة البرمجية.  
-
-</div>
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.

@@ -1,0 +1,32 @@
+/* frontend/src/index.css */
+
+/* Tailwind v4 core */
+@import "tailwindcss";
+
+/* Theme tokens (اختياري) */
+@theme {
+  --font-sans: "Tajawal", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+               Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  --color-bg: #f7f7f7;
+  --color-text: #1f2937;
+  --color-primary: #c5574c;
+  --color-primary-600: #b74c41;
+}
+
+/* Base */
+@layer base {
+  html, body, #root { height: 100%; }
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    background: var(--color-bg);
+    color: var(--color-text);
+  }
+}
+
+/* Components */
+@layer components {
+  .btn { @apply inline-block font-semibold rounded-lg px-4 py-2 transition-all text-center; }
+  .btn-primary { color:#fff; background:var(--color-primary); }
+  .btn-primary:hover { background:var(--color-primary-600); }
+}
